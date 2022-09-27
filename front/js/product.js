@@ -1,7 +1,11 @@
 // récupération de la chaine de requête dans l'URL
 const queryString_url_id = window.location.search;
 const urlSearchParams = new URLSearchParams(queryString_url_id);
-const id = urlSearchParams.get("id");
+const id = urlSearchParams.get("id")
+if (id != null) {
+    let itemPrice = 0
+    let imgUrl, altText;
+}
 
 // récupération de l'objet
 fetch(`http://localhost:3000/api/products/${id}`)
@@ -10,7 +14,10 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
 // récupération des éléments de l'objet 
 function takeInfos(kanap) {
-    const { imageUrl, altTxt, name, price, description, colors } = kanap
+    const { imageUrl, altTxt, name, price, description, colors } = kanap;
+    itemPrice = price;
+    imgUrl = imageUrl;
+    altText = altTxt;
     takeImage(imageUrl, altTxt);
     takeTitle(name);
     takePrice(price);
@@ -55,4 +62,30 @@ function takeColors(colors) {
         select.appendChild(option);
         return select;
     })
+}
+
+// création du panier avec les valeurs recherchés
+const button = document.querySelector("#addToCart")
+button.addEventListener("click", (e) => {
+    const color = document.querySelector("#colors").value;
+    const quantity = document.querySelector("#quantity").value;
+    saveCart(color, quantity);
+    redirectToCart();
+})
+
+// détermination des données que l'on souhaite récupéré de l'objet 
+function saveCart(color, quantity) {
+    const basket = {
+        id: id,
+        color: color,
+        quantity: Number(quantity),
+        price: itemPrice,
+        altTxt: altText,
+        imageUrl: imgUrl,
+    }
+    localStorage.setItem(id, JSON.stringify(basket))
+}
+// lien vers le panier "cart.html" 
+function redirectToCart() {
+    window.location.href = "cart.html"
 }
