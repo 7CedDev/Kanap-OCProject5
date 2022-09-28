@@ -4,7 +4,7 @@ const urlSearchParams = new URLSearchParams(queryString_url_id);
 const id = urlSearchParams.get("id")
 if (id != null) {
     let itemPrice = 0
-    let imgUrl, altText;
+    let imgUrl, altText, articleName;
 }
 
 // récupération de l'objet
@@ -18,10 +18,11 @@ function takeInfos(kanap) {
     itemPrice = price;
     imgUrl = imageUrl;
     altText = altTxt;
+    articleName = name;
     takeImage(imageUrl, altTxt);
     takeTitle(name);
     takePrice(price);
-    takeDescription(description);
+    takeCartContent(description);
     takeColors(colors);
 }
 
@@ -47,7 +48,7 @@ function takePrice(price) {
     return span;
 }
 
-function takeDescription(description) {
+function takeCartContent(description) {
     const p = document.querySelector("#description");
     p.textContent = description;
     return p;
@@ -75,6 +76,7 @@ button.addEventListener("click", (e) => {
 
 // détermination des données que l'on souhaite récupéré de l'objet 
 function saveCart(color, quantity) {
+    const key = `${id}-${color}`
     const basket = {
         id: id,
         color: color,
@@ -82,8 +84,9 @@ function saveCart(color, quantity) {
         price: itemPrice,
         altTxt: altText,
         imageUrl: imgUrl,
+        name: articleName
     }
-    localStorage.setItem(id, JSON.stringify(basket))
+    localStorage.setItem(key, JSON.stringify(basket))
 }
 // lien vers le panier "cart.html" 
 function redirectToCart() {
