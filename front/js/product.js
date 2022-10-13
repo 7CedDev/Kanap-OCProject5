@@ -95,21 +95,17 @@ function saveOrder(color, quantity) {
       id: id,
       color: color,
       quantity: Number(quantity),
-
       altTxt: altText,
       imageUrl: imgUrl,
       name: articleName,
     };
   } else {
     basket = JSON.parse(basket);
-
     const newQuantity = Number(basket.quantity) + Number(quantity);
-
     basket = {
       id: id,
       color: color,
       quantity: newQuantity,
-
       altTxt: altText,
       imageUrl: imgUrl,
       name: articleName,
@@ -120,12 +116,12 @@ function saveOrder(color, quantity) {
 
 // vérifier qu'il n'y ai pas d'erreurs dans le panier
 function isOrderInvalid(color, quantity) {
-  if (color == null || color === "" || color == undefined || quantity == null) {
-    alert("Please select a color and quantity before");
+  if (color == null || color === "" || color == undefined) {
+    alert("Please select a color before");
     return true;
   }
-  if (quantity == 0 || quantity > 100) {
-    alert("Please select a valid Quantity, quantity must be between 1 and 100");
+  if (quantity == null || quantity == 0 || quantity > 100) {
+    alert("Please select a valid quantity, quantity must be between 1 and 100");
   }
 }
 // lien vers le panier "cart.html"

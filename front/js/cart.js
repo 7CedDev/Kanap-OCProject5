@@ -212,6 +212,10 @@ function submitForm(e) {
   // boucle avec la confirmation
   if (isFormInvalid()) return;
   if (isEmailInvalid()) return;
+  if (isNameInvalid()) return;
+  if (isLastNameInvalid()) return;
+  if (isAddressInvalid()) return;
+  if (isCityInvalid()) return;
   const body = getBodyRequest();
   fetch("http://localhost:3000/api/products/order", {
     method: "POST",
@@ -258,7 +262,8 @@ function getIdsFromCache() {
   }
   return ids;
 }
-// alerte si formulaire invalide
+
+// alerte si formulaire non rempli
 function isFormInvalid() {
   const form = document.querySelector(".cart__order__form");
   const inputs = form.querySelectorAll("input");
@@ -270,13 +275,66 @@ function isFormInvalid() {
     return false;
   });
 }
+// alerte si prénom invalide
+function isNameInvalid() {
+  const firstNameErrMsg = document.querySelector("#firstNameErrorMsg");
+  const firstName = document.querySelector("#firstName").value;
+  const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+  if (regexName.test(firstName) === false) {
+    firstNameErrMsg.innerHTML =
+      "Please enter a name valid, without number and accent";
+    return true;
+  }
+  return false;
+}
+
+// alerte si nom invalide
+function isLastNameInvalid() {
+  const lastNameErrMsg = document.querySelector("#lastNameErrorMsg");
+  const lastName = document.querySelector("#lastName").value;
+  const regexLastName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
+  if (regexLastName.test(lastName) === false) {
+    lastNameErrMsg.innerHTML =
+      "Please enter a last name valid, without number and accent";
+    return true;
+  }
+  return false;
+}
+
+// alerte si adresse invalide
+function isAddressInvalid() {
+  const addressErrMsg = document.querySelector("#addressErrorMsg");
+  const address = document.querySelector("#address").value;
+  const regexAddress =
+    /(\d+)?\,?\s?(bis|ter|quater)?\,?\s?(rue|avenue|boulevard|r|av|ave|bd|bvd|square|sente|impasse|cours|esplanade|allée|résidence|parc|rond-point|chemin|côte|place|cité|quai|passage|lôtissement|hameau)?\s([a-zA-Zà-ÿ0-9\s]{2,})+$/gi;
+  if (regexAddress.test(address) === false) {
+    addressErrMsg.innerHTML = "Please enter a valid Address ";
+    return true;
+  }
+  return false;
+}
+
+// alerte si ville invalide
+function isCityInvalid() {
+  const cityErrMsg = document.querySelector("#cityErrorMsg");
+  const city = document.querySelector("#city").value;
+  const regexCity =
+    /^[a-zA-Z\u0080-\u024F]+(?:([\ \-\']|(\.\ ))[a-zA-Z\u0080-\u024F]+)*$/;
+  if (regexCity.test(city) === false) {
+    cityErrMsg.innerHTML = "Please enter a City valid, without number";
+    return true;
+  }
+  return false;
+}
+
 // alerte si email invalide
 function isEmailInvalid() {
+  const emailErrMsg = document.querySelector("#emailErrorMsg");
   const email = document.querySelector("#email").value;
-  const regex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  if (regex.test(email) === false) {
-    alert("Please enter valid email");
+  const regexMail =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (regexMail.test(email) === false) {
+    emailErrMsg.textHTML = "Please enter an email valid";
     return true;
   }
   return false;
