@@ -1,3 +1,4 @@
+// affiche sous forme de tableau le contenu du panier
 const cart = [];
 
 let products = [];
@@ -27,7 +28,8 @@ function getAllProducts() {
     .then(function (value) {
       return value;
     })
-    .catch(function (err) {
+    .catch(function () {
+      alert("Error, an object missing!");
       // Une erreur est survenue
     });
 }
@@ -209,7 +211,7 @@ function submitForm(e) {
     alert("You have to choose a Kanap before!");
     return;
   }
-  // boucle avec la confirmation
+  // boucle avec la confirmation valide nécessaire
   if (isFormInvalid()) return;
   if (isEmailInvalid()) return;
   if (isNameInvalid()) return;

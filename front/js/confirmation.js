@@ -12,6 +12,8 @@ function getOrderId() {
 function displayOrderId(orderId) {
   const orderIdElement = document.getElementById("orderId");
   orderIdElement.textContent = orderId;
+  alert(
+    "Nous vous remercions pour votre commande! à bientôt pour d'autres projet");
 }
 
 // suppression du cache une fois la commande terminée

@@ -65,7 +65,7 @@ function takeColors(colors) {
   });
 }
 
-// création du panier avec les valeurs recherchées
+// Ajout (grâce au clic ou clavier) dans le panier des valeures enregistrées
 function handleClick() {
   const color = document.querySelector("#colors").value;
   const quantity = document.querySelector("#quantity").value;
@@ -74,7 +74,7 @@ function handleClick() {
   redirectToCart();
 }
 
-// ajout dans le panier au click
+// ajout dans le panier au clic
 const button = document.querySelector("#addToCart");
 button.addEventListener("click", handleClick);
 
@@ -120,8 +120,9 @@ function isOrderInvalid(color, quantity) {
     alert("Please select a color before");
     return true;
   }
-  if (quantity == null || quantity == 0 || quantity > 100) {
+  if (quantity == null || quantity == 0 || quantity < 0 || quantity > 100) {
     alert("Please select a valid quantity, quantity must be between 1 and 100");
+    return true;
   }
 }
 // lien vers le panier "cart.html"

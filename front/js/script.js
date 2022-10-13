@@ -24,7 +24,7 @@ fetch("http://localhost:3000/api/products")
       itemsList.appendChild(link);
     });
   })
-  .catch(function (err) {
+  .catch(function () {
     window.alert("une erreur est survenue");
   });
 
