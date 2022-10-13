@@ -12,7 +12,6 @@ async function retrieveItemsFromCache() {
     const itemObject = JSON.parse(item);
     const price = getPrice(itemObject.id);
     itemObject.price = price;
-    console.log(price);
     cart.push(itemObject);
     displayItem(itemObject);
   }
@@ -42,7 +41,6 @@ function getPrice(productId) {
 // ---------------------------------Fonction permettant d'afficher les éléments et de les modifier------------------------------------
 
 function displayItem(item) {
-  console.log(item);
   const article = takeArticle(item);
   const div = takeImage(item);
   article.appendChild(div);
