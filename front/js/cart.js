@@ -141,9 +141,11 @@ function addQuantityToSettings(settings, item) {
   input.min = "1";
   input.max = "100";
   input.value = item.quantity;
-  input.addEventListener("input", () =>
-    refreshPriceAndQuantity(item.id, input.value, item)
-  );
+  input.addEventListener("input", () => {
+    if (input.value <= 100) {
+      refreshPriceAndQuantity(item.id, input.value, item);
+    }
+  });
   quantity.appendChild(input);
   settings.appendChild(quantity);
 }
@@ -283,7 +285,7 @@ function isNameInvalid() {
   const firstName = document.querySelector("#firstName").value;
   const regexName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
   if (regexName.test(firstName) === false) {
-    firstNameErrMsg.innerHTML =
+    firstNameErrMsg.textContent =
       "Please enter a name valid, without number and accent";
     return true;
   }
@@ -296,7 +298,7 @@ function isLastNameInvalid() {
   const lastName = document.querySelector("#lastName").value;
   const regexLastName = /^[a-z][a-z '-.,]{1,31}$|^$/i;
   if (regexLastName.test(lastName) === false) {
-    lastNameErrMsg.innerHTML =
+    lastNameErrMsg.textContent =
       "Please enter a last name valid, without number and accent";
     return true;
   }
@@ -310,7 +312,7 @@ function isAddressInvalid() {
   const regexAddress =
     /(\d+)?\,?\s?(bis|ter|quater)?\,?\s?(rue|avenue|boulevard|r|av|ave|bd|bvd|square|sente|impasse|cours|esplanade|allée|résidence|parc|rond-point|chemin|côte|place|cité|quai|passage|lôtissement|hameau)?\s([a-zA-Zà-ÿ0-9\s]{2,})+$/gi;
   if (regexAddress.test(address) === false) {
-    addressErrMsg.innerHTML = "Please enter a valid Address ";
+    addressErrMsg.textContent = "Please enter a valid Address ";
     return true;
   }
   return false;
@@ -323,7 +325,7 @@ function isCityInvalid() {
   const regexCity =
     /^[a-zA-Z\u0080-\u024F]+(?:([\ \-\']|(\.\ ))[a-zA-Z\u0080-\u024F]+)*$/;
   if (regexCity.test(city) === false) {
-    cityErrMsg.innerHTML = "Please enter a City valid, without number";
+    cityErrMsg.textContent = "Please enter a City valid, without number";
     return true;
   }
   return false;

@@ -44,7 +44,7 @@ function takeTitle(name) {
 // prix
 function takePrice(price) {
   const span = document.querySelector("#price");
-  span.innerHTML = price;
+  span.textContent = price;
   return span;
 }
 // description
